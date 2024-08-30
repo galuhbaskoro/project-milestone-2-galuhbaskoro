@@ -21,6 +21,18 @@ const MyNavbar = () => {
         >
           Cart
         </Link>
+        <Link 
+          to={'/register'} 
+          className="text-gray-300 font-semibold text-lg hover:text-white cursor-pointer"
+        >
+          Register
+        </Link>
+        <Link 
+          to={'/login'} 
+          className="text-gray-300 font-semibold text-lg hover:text-white cursor-pointer"
+        >
+          Login
+        </Link>
       </div>
       <Navbar.Toggle/>
       <Navbar.Collapse>
@@ -35,6 +47,18 @@ const MyNavbar = () => {
           className="text-gray-300 font-semibold text-lg hover:text-white cursor-pointer"
         >
           Cart
+        </Link>
+        <Link 
+          to={'/register'} 
+          className="text-gray-300 font-semibold text-lg hover:text-white cursor-pointer"
+        >
+          Register
+        </Link>
+        <Link 
+          to={'/login'} 
+          className="text-gray-300 font-semibold text-lg hover:text-white cursor-pointer"
+        >
+          Login
         </Link>
       </Navbar.Collapse>
     </Navbar>
