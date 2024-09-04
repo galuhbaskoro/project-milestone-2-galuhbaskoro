@@ -1,6 +1,3 @@
-// import { useNavigate } from 'react-router-dom';
-// import ProductsModel from '../../interfaces/Products';
-
 interface ProductCardProps {
   id: number,
   title: string,
@@ -8,6 +5,7 @@ interface ProductCardProps {
   price: number,
   image: string,
   addCart: VoidFunction,
+  viewDetail: VoidFunction,
 }
 
 const ProductCard = (props: ProductCardProps) => {
@@ -36,6 +34,12 @@ const ProductCard = (props: ProductCardProps) => {
             onClick={props.addCart}
             className="bg-[#1e6eb9] text-[#ffffff]  font-bold text-base  p-3 rounded-lg hover:bg-[#175691] active:scale-95 transition-transform transform mr-3">
              Add to Cart
+          </button>
+          <button
+            type='button' 
+            onClick={props.viewDetail}
+            className="bg-[#1e6eb9] text-[#ffffff]  font-bold text-base  p-3 rounded-lg hover:bg-[#175691] active:scale-95 transition-transform transform">
+             View Details
           </button>
         </div>
       </div>

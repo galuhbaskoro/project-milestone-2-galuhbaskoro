@@ -17,6 +17,7 @@ const Login = () => {
     password: string,
   }) => {
     try {
+      
       const response = await fetch('https://api.escuelajs.co/api/v1/auth/login',{
         method: 'POST',
         body: JSON.stringify({
@@ -27,7 +28,10 @@ const Login = () => {
           'content-type': 'application/json; charset=UTF-8'
         }
       });
+
       if(response.ok){
+        const result = await response.json();
+        localStorage.setItem('login', result.access_token);
         Swal.fire({
           icon: 'success',
           title: 'Your Credential is valid',
@@ -45,7 +49,7 @@ const Login = () => {
           showCancelButton: false,
           timer: 1500
         }).then(()=>{
-          navigate('/');
+          navigate('/login');
         });
       }
     } catch (error) {
@@ -63,11 +67,7 @@ const Login = () => {
     validationSchema: Yup.object({
       email: Yup.string().email().required("Email is required").min(5, 'Email minimal 5 character'),
       password: 
-      Yup.string()
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
-      ).required("Password is required"),
+      Yup.string().required("Password is required").min(5, 'Password Minimal 5 Character and must on letters and number')
     }),
     onSubmit: (values, {setSubmitting}) => {
     	setTimeout( () => {
@@ -81,7 +81,7 @@ const Login = () => {
       className="flex flex-wrap flex-row justify-center w-full py-10"
     >
 			<div 
-        className="flex flex-wrap flex-row w-2/4 p-8 justify-center bg-white border border-gray-200 
+        className="flex flex-wrap flex-row w-full md:w-2/4 p-8 justify-center bg-white border border-gray-200 
         rounded-lg shadow-md items-center"
       >
 				<form

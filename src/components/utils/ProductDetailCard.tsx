@@ -1,14 +1,11 @@
 
-
 interface ProductDetailCardProps {
-  id?: number | undefined,
-  title: string | undefined,
-  category: string | undefined,
-  image: string | undefined,
-  price: number | undefined,
-  creationAt?:string | undefined,
-  updatedAt?:string | undefined,
-  onClick: VoidFunction
+  id: number,
+  title: string,
+  category: string,
+  price: number,
+  image: string,
+  addToCart: VoidFunction,
 }
 
 const ProductDetailCard = (props:ProductDetailCardProps) => {
@@ -30,13 +27,10 @@ const ProductDetailCard = (props:ProductDetailCardProps) => {
         <div className=" text-xl text-[#374151]">
           $ {props.price}.00
         </div>
-        <div className=" text-xl text-[#374151]">
-          {props.creationAt} - {props.updatedAt}
-        </div>
         <div className="flex justify-start pt-6">
           <button
             type='button' 
-            onClick={props.onClick}
+            onClick={props.addToCart}
             className="bg-[#1e6eb9] text-[#ffffff]  font-bold text-base  p-3 rounded-lg hover:bg-[#175691] active:scale-95 transition-transform transform">
              Add To Cart
           </button>

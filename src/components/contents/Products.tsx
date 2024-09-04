@@ -5,12 +5,15 @@ import CategoriesNav from "../utils/CategoriesNav";
 import ProductCard from "../utils/ProductCard";
 import { Button } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Products = () => {
 
   const [products, setProducts] = useState<ProductsModel[]>([]);
   const cartFromStorage = JSON.parse(localStorage.getItem('cart') || '[]');
   const [cart, setCart] = useState<ProductsModel[]>(cartFromStorage);
+
+  const login = localStorage.getItem('login');
 
   const navigate = useNavigate();
 
@@ -34,8 +37,21 @@ const Products = () => {
   }, [cart]);
   
   const addToCart = (product: ProductsModel) => {
-    setCart([...cart, {...product}]);
+    if(login !== null){
+      setCart([...cart, {...product}]);
+    }else{
+      Swal.fire({
+        icon: 'warning',
+        title: 'Please login to add product',
+        showCancelButton: true
+      }).then((result) => {
+        if(result.isConfirmed){
+          navigate('/login');
+        }    
+      })
+    }
   }
+
   
   return(
     <React.Fragment>
@@ -62,6 +78,17 @@ const Products = () => {
             price={product.price}
             image={product.images[0]}
             addCart={() => addToCart(product)}
+            viewDetail={()=> login !== null ? navigate(`/product/detail/${product.id}`) : 
+            Swal.fire({
+              icon: 'warning',
+              title: 'Please login to view detail product',
+              showCancelButton: true,
+            }).then((result) => {
+              if(result.isConfirmed){
+                navigate('/login');
+              }    
+            })
+          }
           />
         ))}
       </div>

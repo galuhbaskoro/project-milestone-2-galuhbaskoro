@@ -48,7 +48,6 @@ const CategoriesNav = () => {
           </Button>
         ))}
       </Button.Group>
-    
   )
 
 }

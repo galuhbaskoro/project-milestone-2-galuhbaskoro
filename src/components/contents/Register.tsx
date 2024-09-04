@@ -8,8 +8,6 @@ interface RegisterUser {
   email: string, 
   name: string,
   password: string,
-  role: string,
-  avatar: string,
 }
 
 const Register = () => {
@@ -20,8 +18,6 @@ const Register = () => {
     email: string,
     name: string,
     password: string,
-    role: string,
-    avatar: string
   }) => {
     try {
       const response = await fetch('https://api.escuelajs.co/api/v1/users',{
@@ -30,8 +26,8 @@ const Register = () => {
           email: values.email,
           name: values.name,
           password: values.password,
-          role: values.role,
-          avatar: values.avatar
+          role: 'customer',
+          avatar: 'https://gravatar.com/avatar/79eaccc1dc565fd1ddb74735b8331972?s=400&d=robohash&r=x'
         }),
         headers: {
           'content-type': 'application/json; charset=UTF-8'
@@ -41,11 +37,12 @@ const Register = () => {
         Swal.fire({
           icon: 'success',
           title: 'your account has been created',
+					text: 'please login with out registered account',
           position: 'center',
           showCancelButton: false,
           timer: 1500
         }).then(()=>{
-          navigate('/');
+          navigate('/login');
         });
       }else{
         Swal.fire({
@@ -68,8 +65,6 @@ const Register = () => {
       email: "",
       name: "",
       password: "",
-      role: "",
-      avatar: ""
     },
     validateOnBlur: true,
     validateOnChange: true,
@@ -77,13 +72,9 @@ const Register = () => {
       email: Yup.string().email().required("Email is required").min(5, 'Email minimal 5 character'),
       name: Yup.string().required("Name is required").min(5, 'name minimal 5 character'),
       password: 
-      Yup.string()
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
-      ).required("Password is required"),
-      role: Yup.string().required("Role is required & Must be Customer").min(5, 'Role minimal 5 character'),
-      avatar: Yup.string().required("Avatar is required & Must be Url Link").min(5, 'Avatar minimal 5 character'),
+      Yup.string().required("Password is required").min(5, 'Password Minimal 5 Character and must on letters and number'),
+      // role: Yup.string().required("Role is required & Must be Customer").min(5, 'Role minimal 5 character'),
+      // avatar: Yup.string().required("Avatar is required & Must be Url Link").min(5, 'Avatar minimal 5 character'),
     }),
     onSubmit: (values, {setSubmitting}) => {
     	setTimeout( () => {
@@ -97,7 +88,7 @@ const Register = () => {
       className="flex flex-wrap flex-row justify-center w-full py-10"
     >
 			<div 
-        className="flex flex-wrap flex-row w-2/4 p-8 justify-center bg-white border border-gray-200 
+        className="flex flex-wrap flex-row w-full md:w-2/4 p-8 justify-center bg-white border border-gray-200 
         rounded-lg shadow-md items-center"
       >
 				<form
@@ -152,7 +143,7 @@ const Register = () => {
 					</div>
 
           {/* Role */}
-					<div className="mb-3">
+					{/* <div className="mb-3">
 						<label 
 							htmlFor="role" 
 							className="mb-2 text-sm font-medium text-gray-900">
@@ -170,10 +161,10 @@ const Register = () => {
 						{formik.touched.role && formik.errors.role && (
             	<div className="text-xs text-red-500 mt-1">{formik.errors.role}</div>
           	)}
-					</div>
+					</div> */}
 
           {/* Avatar */}
-					<div className="mb-3">
+					{/* <div className="mb-3">
 						<label 
 							htmlFor="role" 
 							className="mb-2 text-sm font-medium text-gray-900">
@@ -191,7 +182,7 @@ const Register = () => {
 						{formik.touched.avatar && formik.errors.avatar && (
             	<div className="text-xs text-red-500 mt-1">{formik.errors.avatar}</div>
           	)}
-					</div>
+					</div> */}
 
 					{/* Password */}
 					<div className="mb-3">
